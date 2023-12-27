@@ -1,0 +1,38 @@
+package Bhuvanesh.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import Bhuvanesh.EndPoint.PetEndPoint;
+import Bhuvanesh.EndPoint.UserEndPoints;
+import io.restassured.response.Response;
+
+public class PetTest {
+	
+	public static String createPet="{\r\n"
+			+ "  \"id\": 12,\r\n"
+			+ "  \"category\": {\r\n"
+			+ "    \"id\": 0,\r\n"
+			+ "    \"name\": \"string\"\r\n"
+			+ "  },\r\n"
+			+ "  \"name\": \"doggie\",\r\n"
+			+ "  \"photoUrls\": [\r\n"
+			+ "    \"string\"\r\n"
+			+ "  ],\r\n"
+			+ "  \"tags\": [\r\n"
+			+ "    {\r\n"
+			+ "      \"id\": 0,\r\n"
+			+ "      \"name\": \"string\"\r\n"
+			+ "    }\r\n"
+			+ "  ],\r\n"
+			+ "  \"status\": \"available\"\r\n"
+			+ "}";
+	
+	@Test(priority=1)
+	public void testcreateAPet() {		
+		Response response=PetEndPoint.createUser(createPet);
+		response.then().log().all();
+		Assert.assertEquals(response.getStatusCode(), 200);
+	}
+
+}

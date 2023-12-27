@@ -1,7 +1,15 @@
 package Bhuvanesh.Util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import org.apache.poi.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import org.testng.annotations.DataProvider;
 
@@ -57,4 +65,98 @@ public class DataProviders {
 	}
 	return apidata;
 }
+	
+	 public static JSONArray readExcelDataToJsonArray(String filePath) {
+	        JSONArray jsonArray = new JSONArray();
+
+	        try {
+	            FileInputStream file = new FileInputStream(new File(filePath));
+	            Workbook workbook = new XSSFWorkbook(file);
+
+	            Sheet sheet = workbook.getSheetAt(0); // Assuming data is in the first sheet
+
+	            // Iterate through rows
+	            for (Row row : sheet) {
+	                JSONObject jsonObject = new JSONObject();
+	                int cellIndex = 0;
+
+	                // Iterate through cells
+	                for (Cell cell : row) {
+	                    // Assuming the first row contains headers
+	                    if (row.getRowNum() == 0) {
+	                        // Store headers from Excel as keys in JSON
+	                        jsonObject.put(getKeyFromColumnIndex(cellIndex), cell.getStringCellValue());
+	                    } else {
+	                        // For data rows, store cell values in JSON using previously defined keys
+	                        jsonObject.put(getKeyFromColumnIndex(cellIndex), getCellValueAsString(cell));
+	                    }
+	                    cellIndex++;
+	                }
+
+	                // Add JSON object to array (skip header row)
+	                if (row.getRowNum() != 0) {
+	                    jsonArray.put(jsonObject);
+	                }
+	            }
+
+	            workbook.close();
+	            file.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        return jsonArray;
+	    }
+
+	    private static String getKeyFromColumnIndex(int columnIndex) {
+	        // Map column index to the corresponding JSON key
+	        switch (columnIndex) {
+	            case 0:
+	                return "id";
+	            case 1:
+	                return "username";
+	            case 2:
+	                return "firstName";
+	            case 3:
+	                return "lastName";
+	            case 4:
+	                return "email";
+	            case 5:
+	                return "password";
+	            case 6:
+	                return "phone";
+	            case 7:
+	                return "userStatus";
+	            default:
+	                return "key_" + columnIndex; // Fallback key if not explicitly defined
+	        }
+	    }
+
+	    private static Object  getCellValueAsString(Cell cell) {
+	        switch (cell.getCellType()) {
+	            case STRING:
+	                return cell.getStringCellValue();
+	            case NUMERIC:
+	            	 if (DateUtil.isCellDateFormatted(cell)) {
+	                     return cell.getLocalDateTimeCellValue().toString();
+	                 } else {
+	                     // Check if the cell contains an integer value
+	                     double numericValue = cell.getNumericCellValue();
+	                     int intValue = (int) numericValue;
+	                     
+	                     // Check if the double value is equal to the integer value
+	                     if (numericValue == intValue) {
+	                         return intValue; // Convert to int if it's a whole number
+	                     } else {
+	                         return numericValue; // Return as double if not a whole number
+	                     }
+	                 }
+	            case BOOLEAN:
+	                return String.valueOf(cell.getBooleanCellValue());
+	            case FORMULA:
+	                return cell.getCellFormula();
+	            default:
+	                return "";
+	        }
+	    }
 }

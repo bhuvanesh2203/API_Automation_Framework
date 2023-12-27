@@ -1,0 +1,21 @@
+package Bhuvanesh.Test;
+
+import org.testng.annotations.Test;
+
+import Bhuvanesh.Payload.User;
+import Bhuvanesh.Util.DataProviders;
+
+public class UserDataDriverTest {
+
+	@Test(priority=1,dataProvider="data",dataProviderClass=DataProviders.class)
+	public void createUsers(String UserId,String UserName,String FirstName,String LastName,String Password,String Email,String Phone) {
+		User userPayload=new User();
+		userPayload.setId(Integer.parseInt(UserId));
+		userPayload.setUsername(UserName);
+		userPayload.setFirstname (FirstName);
+		userPayload.setLastname (LastName);
+		userPayload.setEmail (Email);
+		userPayload.setPassword(Password);
+		userPayload.setPhonenumber(Phone);
+	}
+}

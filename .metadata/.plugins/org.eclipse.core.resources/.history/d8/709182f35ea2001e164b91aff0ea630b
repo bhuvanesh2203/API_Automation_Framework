@@ -1,0 +1,5 @@
+package Bhuvanesh.EndPoint;
+//perform CRUD operations on the User end points
+public class UserEndPoints  {
+
+}

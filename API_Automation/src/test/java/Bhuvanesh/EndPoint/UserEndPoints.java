@@ -53,4 +53,16 @@ public static Response deleteUser(String UserName) {
 	
 	return response;
 }
+
+public static Response createUser(String payload) {
+	
+	Response response=given()
+    .contentType(ContentType.JSON)
+    .accept(ContentType.JSON)
+    .body(payload)
+	.when()
+	 .post(Routes.post_url_list);
+	
+	return response;
+}
 }

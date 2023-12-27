@@ -1,0 +1,12 @@
+package Bhuvanesh.Test;
+
+import org.testng.annotations.BeforeClass;
+
+public class UserTest {
+
+	Faker faker;
+	@BeforeClass
+	public void setup() {
+		
+	}
+}

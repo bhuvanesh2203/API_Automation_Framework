@@ -3,12 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Bhuvanesh.Test.UserDataDriverTest">
+      <class name="Bhuvanesh.Test.PetTest">
         <methods>
-          <include name="createUsers" invocation-numbers="0"/>
-          <include name="deleteUsers" invocation-numbers="0"/>
+          <include name="UploadImagetoPet"/>
         </methods>
-      </class> <!-- Bhuvanesh.Test.UserDataDriverTest -->
+      </class> <!-- Bhuvanesh.Test.PetTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

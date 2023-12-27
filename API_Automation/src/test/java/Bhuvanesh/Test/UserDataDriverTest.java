@@ -1,5 +1,8 @@
 package Bhuvanesh.Test;
 
+import java.io.File;
+
+import org.json.JSONArray;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -32,6 +35,16 @@ public class UserDataDriverTest {
 	@Test(priority=2,dataProvider="UserNames",dataProviderClass=DataProviders.class)
 	public void deleteUsers(String UserName ) {
 		Response response=UserEndPoints.deleteUser(UserName);
+		response.then().log().all();
+		Assert.assertEquals(response.getStatusCode(), 200);
+	}
+	
+	@Test(priority=3)
+	public void createUsersWithJsonArray( ) {
+		String filePath = System.getProperty("user.dir")+File.separator+"Input"+File.separator+"UserTestdataListArray.xlsx";
+		 JSONArray jsonArray = DataProviders.readExcelDataToJsonArray(filePath);
+		 String jsonArrayString = jsonArray.toString();
+		Response response=UserEndPoints.createUser(jsonArrayString);
 		response.then().log().all();
 		Assert.assertEquals(response.getStatusCode(), 200);
 	}

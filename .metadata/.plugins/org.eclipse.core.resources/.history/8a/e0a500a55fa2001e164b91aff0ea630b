@@ -1,0 +1,17 @@
+package Bhuvanesh.EndPoint;
+import static io.restassured.RestAssured.*;
+
+import org.apache.http.entity.ContentType;
+//perform CRUD operations on the User end points
+public class UserEndPoints  {
+
+	public static void createUser() {
+		
+		Response response=given()
+        .contentType(ContentType.APPLICATION_JSON)
+        .accept(ContentType.APPLICATION_JSON)
+        .body(payload)
+		.when()
+		 .post(Routes.post_url);
+	}
+}

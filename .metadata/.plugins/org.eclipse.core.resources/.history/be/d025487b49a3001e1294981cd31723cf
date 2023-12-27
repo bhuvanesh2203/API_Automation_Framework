@@ -1,0 +1,37 @@
+package Bhuvanesh.Test;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import Bhuvanesh.EndPoint.UserEndPoints;
+import Bhuvanesh.Payload.User;
+import Bhuvanesh.Util.DataProviders;
+import io.restassured.response.Response;
+
+public class UserDataDriverTest {
+
+	@Test(priority=1,dataProvider="data",dataProviderClass=DataProviders.class)
+	public void createUsers(String UserId,String UserName,String FirstName,String LastName,String Password,String Email,String Phone) {
+		User userPayload=new User();
+		System.out.println("DATA:"+UserName+FirstName+LastName+Password+Email+Phone);
+		int tempId=Integer.parseInt(UserId);
+		userPayload.setId(tempId);
+		userPayload.setUsername(UserName);
+		userPayload.setFirstname (FirstName);
+		userPayload.setEmail (Email);
+		userPayload.setPassword(Password);
+		userPayload.setPhonenumber(Phone);
+		System.out.println("userPayload id:"+userPayload.getId());
+		
+		Response response=UserEndPoints.createUser(userPayload);
+		response.then().log().all();
+		Assert.assertEquals(response.getStatusCode(), 200);
+	}
+	
+	@Test(priority=2,dataProvider="UserNames",dataProviderClass=DataProviders.class)
+	public void deleteUsers(String UserName ) {
+		Response response=UserEndPoints.deleteUser(UserName);
+		response.then().log().all();
+		Assert.assertEquals(response.getStatusCode(), 200);
+	}
+}

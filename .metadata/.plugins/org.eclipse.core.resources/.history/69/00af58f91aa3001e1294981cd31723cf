@@ -1,0 +1,9 @@
+package Bhuvanesh.Test;
+
+public class UserDataDriverTest {
+
+	@Test(priority=1,dataProvider='data')
+	public void createUsers() {
+		
+	}
+}

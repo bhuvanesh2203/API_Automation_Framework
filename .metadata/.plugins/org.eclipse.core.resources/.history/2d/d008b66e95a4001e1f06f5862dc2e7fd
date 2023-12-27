@@ -1,0 +1,130 @@
+package Bhuvanesh.Util;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import org.apache.poi.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import org.testng.annotations.DataProvider;
+
+public class DataProviders {
+	@DataProvider(name="data")
+
+	public String[][] getAllData() throws IOException{
+
+	String path=System.getProperty("user.dir")+File.separator+"Input"+File.separator+"UserTestdata.xlsx"; 
+	XLUtility xl=new XLUtility(path);
+
+	int rownum=xl.getRowCount("Sheet1");
+
+	int colcount=xl.getCellCount("Sheet1",1);
+
+	String apidata[][]=new String[rownum][colcount];
+
+	for(int i=1;i<=rownum;i++) {
+		
+	
+
+	for(int j=0;j<colcount;j++) {
+      if(xl.getCellData("Sheet1",j, i).equals("") ||xl.getCellData("Sheet1",j, i).isEmpty() || xl.getCellData("Sheet1",j, i)==null) {
+    	  continue;
+      }
+	apidata[i-1][j]= xl.getCellData("Sheet1",j, i).split("\\.")[0];
+	System.out.print("cell data"+xl.getCellData("Sheet1",j, i));
+
+	}
+	}
+	for(int i=0;i<rownum;i++) {
+		for(int j=0;j<colcount;j++) {
+			System.out.println(apidata[i][j]);
+		}
+		System.out.println();
+	}
+	
+	return apidata;
+
+	
+	}
+	
+	@DataProvider (name="UserNames")
+	public String[] getUserNames() throws IOException
+	{
+	String path=System.getProperty("user.dir")+File.separator+"Input"+File.separator+"UserTestdata.xlsx";
+	XLUtility xl=new XLUtility (path);
+	int rownum=xl.getRowCount ("Sheet1");
+	String apidata[]=new String[rownum];
+	for (int i=1;i<=rownum; i++)
+	{
+	apidata[i-1]= xl.getCellData("Sheet1", 1, i);
+	}
+	return apidata;
+}
+	
+	  public static JSONArray readExcelDataToJsonArray(String filePath) {
+	        JSONArray jsonArray = new JSONArray();
+
+	        try {
+	            FileInputStream file = new FileInputStream(new File(filePath));
+	            Workbook workbook = new XSSFWorkbook(file);
+
+	            Sheet sheet = workbook.getSheetAt(0); // Assuming data is in the first sheet
+
+	            // Iterate through rows
+	            for (Row row : sheet) {
+	                JSONObject jsonObject = new JSONObject();
+	                int cellIndex = 0;
+
+	                // Iterate through cells
+	                for (Cell cell : row) {
+	                    // Assuming the first row contains headers
+	                    if (row.getRowNum() == 0) {
+	                        // Store headers for keys in JSON
+	                        jsonObject.put("header_" + cellIndex, cell.getStringCellValue());
+	                    } else {
+	                        // Store cell values in JSON
+	                        jsonObject.put("value_" + cellIndex, getCellValueAsString(cell));
+	                    }
+	                    cellIndex++;
+	                }
+
+	                // Add JSON object to array (skip header row)
+	                if (row.getRowNum() != 0) {
+	                    jsonArray.put(jsonObject);
+	                }
+	            }
+
+	            workbook.close();
+	            file.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        return jsonArray;
+	    }
+	  private static String getCellValueAsString(Cell cell) {
+	        switch (cell.getCellType()) {
+	            case STRING:
+	                return cell.getStringCellValue();
+	            case NUMERIC:
+	                if (DateUtil.isCellDateFormatted(cell)) {
+	                    return cell.getLocalDateTimeCellValue().toString();
+	                } else {
+	                    return String.valueOf(cell.getNumericCellValue());
+	                }
+	            case BOOLEAN:
+	                return String.valueOf(cell.getBooleanCellValue());
+	            case FORMULA:
+	                return cell.getCellFormula();
+	            default:
+	                return "";
+	        }
+	
+	
+}
+}

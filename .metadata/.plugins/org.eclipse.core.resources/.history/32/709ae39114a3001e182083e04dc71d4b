@@ -1,0 +1,8 @@
+package Bhuvanesh.Util;
+
+public class Snippet {
+	public static void main(String[] args) {
+		userPayload.setEmail (faker.internet().safeEmailAddress());
+	}
+}
+

@@ -1,0 +1,13 @@
+package Bhuvanesh.Test;
+
+import org.testng.annotations.Test;
+
+import Bhuvanesh.Util.DataProviders;
+
+public class UserDataDriverTest {
+
+	@Test(priority=1,dataProvider="data",dataProviderClass=DataProviders.class)
+	public void createUsers() {
+		
+	}
+}

@@ -1,0 +1,36 @@
+package Bhuvanesh.EndPoint;
+
+import static io.restassured.RestAssured.*;
+
+import java.io.File;
+
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
+public class PetEndPoint {
+	public static Response createUser(String payload) {
+		
+		Response response=given()
+        .contentType(ContentType.JSON)
+        .accept(ContentType.JSON)
+        .body(payload)
+		.when()
+		 .post(Routes.create_Pet);
+		
+		return response;
+	}
+	
+	public static Response createPetImage(String payload,String path,int petId) {
+		
+		Response response=given()
+				.multiPart(new File(path))
+				 .pathParam("petId", petId)
+        .contentType(ContentType.JSON)
+        .accept(ContentType.JSON)
+        .body(payload)
+		.when()
+		 .post(Routes.create_Pet_Image);
+		
+		return response;
+	}
+}

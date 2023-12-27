@@ -1,0 +1,12 @@
+package Bhuvanesh.EndPoint;
+import static io.restassured;
+//perform CRUD operations on the User end points
+public class UserEndPoints  {
+
+	public static void createUser() {
+		RestAssured
+		given()
+
+		.when()
+	}
+}

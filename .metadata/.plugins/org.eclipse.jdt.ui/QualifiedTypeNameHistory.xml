@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.testng.annotations.DataProvider"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="org.testng.annotations.Test"/>
+    <fullyQualifiedTypeName name="Bhuvanesh.Util.DataProviders"/>
+    <fullyQualifiedTypeName name="com.aventstack.extentreports.ExtentTest"/>
+    <fullyQualifiedTypeName name="com.aventstack.extentreports.ExtentReports"/>
+    <fullyQualifiedTypeName name="org.testng.ITestContext"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="org.testng.ITestListener"/>
+    <fullyQualifiedTypeName name="org.testng.ITestResult"/>
+    <fullyQualifiedTypeName name="org.apache.logging.log4j.util.Strings"/>
+    <fullyQualifiedTypeName name="com.aventstack.extentreports.reporter.configuration.Theme"/>
+    <fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
+    <fullyQualifiedTypeName name="org.apache.log4j.LogManager"/>
+    <fullyQualifiedTypeName name="org.apache.logging.log4j.Logger"/>
+    <fullyQualifiedTypeName name="org.apache.logging.log4j.LogManager"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,26 @@
+package Bhuvanesh.Test;
+
+import org.testng.annotations.BeforeClass;
+
+import com.github.javafaker.Faker;
+
+import Bhuvanesh.Payload.User;
+
+public class UserTest {
+
+	Faker faker;
+	User userPayload;
+	@BeforeClass
+	public void setup() {
+		faker=new Faker();
+		userPayload=new User();
+		userPayload.setId(faker.idNumber().hashCode());
+		userPayload.setUsername(faker.name().username());
+		userPayload.setFirstname (faker.name().firstName());
+		userPayload.setLastname (faker.name().lastName());
+		userPayload.setEmail (faker.internet().safeEmailAddress());
+		userPayload.setPassword(faker.internet().password (5, 10));
+		userPayload.setPhonenumber (faker.phoneNumber().cellPhone());
+		
+	}
+}

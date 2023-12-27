@@ -1,0 +1,13 @@
+package Bhuvanesh.Payload;
+
+public class User {
+
+	int id;
+	String username;
+	String firstname;
+	String lastname;
+	String email;
+	String password;
+	String phonenumber;
+	int userstatus;
+}

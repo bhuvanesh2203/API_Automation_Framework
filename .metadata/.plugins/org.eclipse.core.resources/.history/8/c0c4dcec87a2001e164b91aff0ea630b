@@ -1,0 +1,19 @@
+package Bhuvanesh.Test;
+
+import org.testng.annotations.BeforeClass;
+
+import com.github.javafaker.Faker;
+
+import Bhuvanesh.Payload.User;
+
+public class UserTest {
+
+	Faker faker;
+	User userPayload;
+	@BeforeClass
+	public void setup() {
+		faker=new Faker();
+		userPayload=new User();
+		
+	}
+}
